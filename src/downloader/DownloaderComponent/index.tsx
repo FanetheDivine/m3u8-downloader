@@ -1,9 +1,12 @@
 import { FC, useState } from "react";
 import { downloadM3U8 } from "./downloadM3U8";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Typography } from "antd";
+import { CloseCircleOutlined } from "@ant-design/icons";
+import { useBoolean } from "ahooks";
 
 const DownLoader: FC = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [close, { toggle: toggleClose }] = useBoolean(false);
+  const [isExpanded, { toggle: toggleExpanded }] = useBoolean(false);
   const [loading, withLoading] = useLoading();
 
   return (
@@ -13,9 +16,9 @@ const DownLoader: FC = () => {
         zIndex: 9999,
         right: "0.5rem",
         top: "0.5rem",
-        width: "36rem",
+        width: "24rem",
         backgroundColor: "white",
-        display: "flex",
+        display: close ? "none" : "flex",
         flexDirection: "column",
         gap: "0.5rem",
         padding: "1rem",
@@ -23,22 +26,18 @@ const DownLoader: FC = () => {
         boxShadow: "0 0 0 2px rgba(0, 0, 0, 0.05)",
       }}
     >
-      <Button type="primary" onClick={() => setIsExpanded((val) => !val)}>
-        m3u8视频下载器 {isExpanded ? "收起" : "展开"}
-      </Button>
+      <span style={{ display: "flex", gap: 5 }}>
+        <Button type="primary" onClick={toggleExpanded} style={{ flex: 1 }}>
+          m3u8视频下载器 {isExpanded ? "收起" : "展开"}
+        </Button>
+        <CloseCircleOutlined onClick={toggleClose} />
+      </span>
       <Form
         onFinish={withLoading(downloadM3U8)}
         style={{ display: isExpanded ? "block" : "none" }}
       >
         <Form.Item
-          label={"视频名称"}
-          name="name"
-          rules={[{ required: true, message: "请输入视频名称" }]}
-        >
-          <Input></Input>
-        </Form.Item>
-        <Form.Item
-          label={"m3u8视频url"}
+          label={"视频url"}
           name="url"
           rules={[{ required: true, message: "请输入视频url" }]}
         >
@@ -49,6 +48,10 @@ const DownLoader: FC = () => {
             下载
           </Button>
         </Form.Item>
+        下载结束后，执行这段命令转换视频格式！<br></br>
+        <Typography.Text code copyable>
+          ffmpeg -i video.ts -c copy output.mp4
+        </Typography.Text>
       </Form>
     </div>
   );
@@ -64,6 +67,7 @@ const useLoading = () => {
       try {
         return await fn(...args);
       } finally {
+        debugger;
         setLoading(false);
       }
     };

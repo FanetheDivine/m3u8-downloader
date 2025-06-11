@@ -8,11 +8,13 @@
     "build": "tsc && vite build"
   },
   "dependencies": {
+    "@ant-design/icons": "5.x",
     "@ffmpeg/core": "^0.12.10",
     "@ffmpeg/ffmpeg": "^0.12.15",
     "@ffmpeg/util": "^0.12.2",
     "@types/file-saver": "^2.0.7",
     "@vitejs/plugin-react": "^4.5.2",
+    "ahooks": "^3.8.5",
     "antd": "^5.26.0",
     "file-saver": "^2.0.5",
     "react": "^18.2.0",
@@ -20,6 +22,7 @@
     "typescript": "^5.8.3"
   },
   "devDependencies": {
+    "@types/node": "20",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "vite": "^6.3.5",
