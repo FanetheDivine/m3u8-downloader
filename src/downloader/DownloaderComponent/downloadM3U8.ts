@@ -1,5 +1,6 @@
 import { saveAs } from "file-saver";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
+import { toBlobURL } from "@ffmpeg/util";
 
 export async function downloadM3U8(props: { name: string; url: string }) {
   const { name, url } = props;
@@ -30,10 +31,14 @@ const getUnit8ArrayPieces = async (urls: string[]) => {
 }
 
 const ffmpeg = new FFmpeg();
-ffmpeg.load({
-  coreURL: "./ffmpeg/ffmpeg-core.js",
-  wasmURL: "./ffmpeg/ffmpeg-core.wasm",
-});
+const loadFFmpeg = async () => {
+  ffmpeg.load({
+    coreURL: "./ffmpeg/ffmpeg-core.js",
+    wasmURL: "./ffmpeg/ffmpeg-core.wasm",
+    workerURL: await toBlobURL('https://unpkg.com/@ffmpeg/core-mt@0.12.6/dist/umd/ffmpeg-core.worker.js', 'text/javascript')
+  })
+}
+loadFFmpeg()
 
 const convertData = async function (data: Uint8Array): Promise<Blob> {
   if (!ffmpeg.loaded) {
