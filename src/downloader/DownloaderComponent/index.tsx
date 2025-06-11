@@ -7,13 +7,28 @@ const DownLoader: FC = () => {
   const [loading, withLoading] = useLoading();
 
   return (
-    <div className="fixed z-50 right-2 top-2 w-xl bg-white flex flex-col gap-2 p-4 rounded-2xl ring-2">
+    <div
+      style={{
+        position: "fixed",
+        zIndex: 9999,
+        right: "0.5rem",
+        top: "0.5rem",
+        width: "36rem",
+        backgroundColor: "white",
+        display: "flex",
+        flexDirection: "column",
+        gap: "0.5rem",
+        padding: "1rem",
+        borderRadius: "1rem",
+        boxShadow: "0 0 0 2px rgba(0, 0, 0, 0.05)",
+      }}
+    >
       <Button type="primary" onClick={() => setIsExpanded((val) => !val)}>
         m3u8视频下载器 {isExpanded ? "收起" : "展开"}
       </Button>
       <Form
         onFinish={withLoading(downloadM3U8)}
-        className={isExpanded ? "block" : "hidden"}
+        style={{ display: isExpanded ? "block" : "none" }}
       >
         <Form.Item
           label={"视频名称"}
