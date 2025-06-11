@@ -67,7 +67,6 @@ const useLoading = () => {
       try {
         return await fn(...args);
       } finally {
-        debugger;
         setLoading(false);
       }
     };

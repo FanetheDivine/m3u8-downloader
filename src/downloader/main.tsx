@@ -5,6 +5,5 @@ setTimeout(() => {
   const container = document.createElement("div");
   const html = document.querySelector("html")!;
   html.append(container);
-  console.log(container);
   ReactDOM.createRoot(container).render(<DownloaderComponent />);
 }, 2000);
