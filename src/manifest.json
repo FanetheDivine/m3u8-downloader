@@ -4,7 +4,7 @@
   "manifest_version": 3,
   "web_accessible_resources": [
     {
-      "resources": ["main.tsx"],
+      "resources": ["downloader/main.tsx"],
       "matches": ["<all_urls>"]
     }
   ],
