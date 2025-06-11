@@ -7,13 +7,13 @@ const DownLoader: FC = () => {
   const [loading, withLoading] = useLoading();
 
   return (
-    <div className="fixed z-50 right-2 top-2 w-xl flex flex-col gap-2 p-4 rounded-2xl ring-2">
+    <div className="fixed z-50 right-2 top-2 w-xl bg-white flex flex-col gap-2 p-4 rounded-2xl ring-2">
       <Button type="primary" onClick={() => setIsExpanded((val) => !val)}>
-        m3u8视频下载器 {isExpanded ? "展开" : "收起"}
+        m3u8视频下载器 {isExpanded ? "收起" : "展开"}
       </Button>
       <Form
         onFinish={withLoading(downloadM3U8)}
-        className={isExpanded ? "hidden" : "block"}
+        className={isExpanded ? "block" : "hidden"}
       >
         <Form.Item
           label={"视频名称"}
@@ -23,11 +23,11 @@ const DownLoader: FC = () => {
           <Input></Input>
         </Form.Item>
         <Form.Item
-          label={"m3u8"}
+          label={"m3u8视频url"}
           name="url"
           rules={[{ required: true, message: "请输入视频url" }]}
         >
-          <Input placeholder="输入m3u8 url"></Input>
+          <Input></Input>
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" loading={loading}>
